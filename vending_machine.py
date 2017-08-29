@@ -13,3 +13,5 @@ class VendingMachine():
         """Returns True if the coin is a valid and acceptable coin."""
         if coin in self.VALID_COINS:
             return True
+
+        return False
