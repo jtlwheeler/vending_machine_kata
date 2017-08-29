@@ -33,6 +33,22 @@ class VendingMachineTest(unittest.TestCase):
         self.machine.insert_coin(vm.NICKEL)
         self.assertEqual(0.05, self.machine.current_amount)
         self.assertEqual(1, self.machine.inserted_coins[vm.NICKEL])
+    
+    def test_insert_coin_with_different_coins_and_check_inserted_amount_and_inserted_coins(self):
+        self.machine.insert_coin(vm.NICKEL)
+        self.machine.insert_coin(vm.NICKEL)
+        
+        self.machine.insert_coin(vm.DIME)
+        self.machine.insert_coin(vm.DIME)
+        
+        self.machine.insert_coin(vm.QUARTER)
+        self.machine.insert_coin(vm.QUARTER)
+
+        self.assertEqual(0.80, self.machine.current_amount)
+
+        self.assertEqual(2, self.machine.inserted_coins[vm.NICKEL])
+        self.assertEqual(2, self.machine.inserted_coins[vm.DIME])
+        self.assertEqual(2, self.machine.inserted_coins[vm.QUARTER])
 
 if __name__ == '__main__':
     unittest.main()
