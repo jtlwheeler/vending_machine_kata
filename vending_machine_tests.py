@@ -5,6 +5,7 @@
 """
 
 import unittest
+import vending_machine
 from vending_machine import VendingMachine
 
 class VendingMachineTest(unittest.TestCase):
@@ -12,16 +13,16 @@ class VendingMachineTest(unittest.TestCase):
         self.machine = VendingMachine()
 
     def test_is_valid_coin_with_nickel_should_return_true(self):
-        self.assertTrue(self.machine.is_valid_coin("NICKEL"))
+        self.assertTrue(self.machine.is_valid_coin(vending_machine.NICKEL))
 
     def test_is_valid_coin_with_dime_should_return_true(self):
-        self.assertTrue(self.machine.is_valid_coin("DIME"))
+        self.assertTrue(self.machine.is_valid_coin(vending_machine.DIME))
 
     def test_is_valid_coin_with_quarter_should_return_true(self):
-        self.assertTrue(self.machine.is_valid_coin("QUARTER"))
+        self.assertTrue(self.machine.is_valid_coin(vending_machine.QUARTER))
 
     def test_is_valid_coin_with_penny_should_return_false(self):
-        self.assertFalse(self.machine.is_valid_coin("PENNY"))
+        self.assertFalse(self.machine.is_valid_coin(vending_machine.PENNY))
 
 if __name__ == '__main__':
     unittest.main()
