@@ -25,7 +25,7 @@ class VendingMachine():
     PRODUCTS = {COLA : 1.00, CHIPS : 0.50, CANDY : 0.65}
 
     def __init__(self):
-        # Current coin inventory.
+        # Current coin inventory. Coin and quantity.
         self.coin_inventory = {}
 
         # Coin return with number of coins.
@@ -38,11 +38,24 @@ class VendingMachine():
         self.dispensed_product = ""
 
         # Acceptable coins and the number entered by the customer.
+        # Coin and quantity.
         self.inserted_coins = {}
 
         for key in self.VALID_COINS:
             self.coin_inventory[key] = 0
             self.inserted_coins[key] = 0
+
+    def dispense_product(self, product):
+        """Dispense the product once the user has entered enough money."""
+        if self.current_amount < self.PRODUCTS[product]:
+            return
+
+        self.dispensed_product = COLA
+        for coin in self.inserted_coins:
+            if self.inserted_coins[coin] > 0:
+                self.coin_inventory[coin] = self.inserted_coins[coin]
+
+        self.current_amount = 0.0
 
     def insert_coin(self, coin):
         """
@@ -85,12 +98,4 @@ class VendingMachine():
         self.current_amount = 0.0
 
     def select_cola(self):
-        if self.current_amount < self.PRODUCTS[COLA]:
-            return
-
-        self.dispensed_product = COLA
-        for coin in self.inserted_coins:
-            if self.inserted_coins[coin] > 0:
-                self.coin_inventory[coin] = self.inserted_coins[coin]
-
-        self.current_amount = 0.0
+        self.dispense_product(COLA)
