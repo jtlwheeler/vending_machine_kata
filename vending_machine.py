@@ -35,7 +35,7 @@ class VendingMachine():
         self.current_amount = 0.0
 
         # Product dispense bin.
-        self.dispensed_product = ""
+        self.product_dispense_bin = ""
 
         # Acceptable coins and the number entered by the customer.
         # Coin and quantity.
@@ -50,12 +50,13 @@ class VendingMachine():
         if self.current_amount < self.PRODUCTS[product]:
             return
 
-        self.dispensed_product = COLA
+        self.product_dispense_bin = product
         for coin in self.inserted_coins:
             if self.inserted_coins[coin] > 0:
                 self.coin_inventory[coin] = self.inserted_coins[coin]
+                self.inserted_coins[coin] = 0
 
-        self.current_amount = 0.0
+        self.current_amount -= self.PRODUCTS[product]
 
     def insert_coin(self, coin):
         """
@@ -92,10 +93,10 @@ class VendingMachine():
                 # Place coin in the return coin bin.
                 self.return_coin(coin, self.inserted_coins[coin])
 
+                self.current_amount -= (self.VALID_COINS[coin] * self.inserted_coins[coin])
+
                 # Remove the coin from the inserted coins bin.
                 self.inserted_coins[coin] = 0
-
-        self.current_amount = 0.0
 
     def select_cola(self):
         self.dispense_product(COLA)

@@ -90,7 +90,7 @@ class VendingMachineTest(unittest.TestCase):
 
     def test_select_cola_without_enough_money(self):
         self.machine.select_cola()
-        self.assertEqual("", self.machine.dispensed_product)
+        self.assertEqual("", self.machine.product_dispense_bin)
 
     def test_select_cola_wth_exact_money(self):
         self.machine.insert_coin(vm.QUARTER)
@@ -99,7 +99,7 @@ class VendingMachineTest(unittest.TestCase):
         self.machine.insert_coin(vm.QUARTER)
 
         self.machine.select_cola()
-        self.assertEqual(vm.COLA, self.machine.dispensed_product)
+        self.assertEqual(vm.COLA, self.machine.product_dispense_bin)
 
     def test_select_cola_with_exact_money_and_check_coin_inventory(self):
         self.machine.insert_coin(vm.QUARTER)
@@ -111,6 +111,20 @@ class VendingMachineTest(unittest.TestCase):
 
         self.assertEqual(0.0, self.machine.current_amount)
         self.assertEqual(4, self.machine.coin_inventory[vm.QUARTER])
+    
+    def test_select_cola_with_extra_money_and_check_coin_inventory(self):
+        self.machine.insert_coin(vm.QUARTER)
+        self.machine.insert_coin(vm.QUARTER)
+        self.machine.insert_coin(vm.QUARTER)
+        self.machine.insert_coin(vm.DIME)
+        self.machine.insert_coin(vm.DIME)
+        self.machine.insert_coin(vm.DIME)
+
+        self.machine.select_cola()
+
+        self.assertEqual(0.05, round(self.machine.current_amount, 2))
+        self.assertEqual(3, self.machine.coin_inventory[vm.QUARTER])
+        self.assertEqual(3, self.machine.coin_inventory[vm.DIME])
 
 if __name__ == '__main__':
     unittest.main()
