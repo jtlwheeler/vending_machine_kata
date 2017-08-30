@@ -21,6 +21,7 @@ class VendingMachine():
     # Coins that the vending machine are able to accept and their value.
     VALID_COINS = {NICKEL : 0.05, DIME : 0.10, QUARTER : 0.25}
 
+    # Products that are in the vending machine.
     PRODUCTS = {COLA : 1.00, CHIPS : 0.50, CANDY : 0.65}
 
     def __init__(self):
@@ -32,6 +33,8 @@ class VendingMachine():
 
         # Coin return with number of coins.
         self.coin_return = {}
+
+        self.dispensed_product = ""
 
     def insert_coin(self, coin):
         """
@@ -72,3 +75,7 @@ class VendingMachine():
                 self.inserted_coins[coin] = 0
 
         self.current_amount = 0.0
+
+    def select_cola(self):
+       if self.current_amount < self.PRODUCTS[COLA]:
+           return
