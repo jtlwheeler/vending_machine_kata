@@ -77,5 +77,7 @@ class VendingMachine():
         self.current_amount = 0.0
 
     def select_cola(self):
-       if self.current_amount < self.PRODUCTS[COLA]:
-           return
+        if self.current_amount < self.PRODUCTS[COLA]:
+            return
+
+        self.dispensed_product = COLA
