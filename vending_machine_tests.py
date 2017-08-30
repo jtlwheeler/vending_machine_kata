@@ -79,5 +79,8 @@ class VendingMachineTest(unittest.TestCase):
         self.machine.return_inserted_coins()
         self.assertEqual(0.0, self.machine.current_amount)
 
+    def test_check_cola_price(self):
+        self.assertEqual(1.0, self.machine.PRODUCTS["COLA"])
+
 if __name__ == '__main__':
     unittest.main()

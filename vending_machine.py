@@ -15,6 +15,8 @@ class VendingMachine():
     # Coins that the vending machine are able to accept and their value.
     VALID_COINS = {NICKEL : 0.05, DIME : 0.10, QUARTER : 0.25}
 
+    PRODUCTS = {"COLA" : 1.00}
+
     def __init__(self):
         # Monetary amount inserted by the customer.
         self.current_amount = 0.0
