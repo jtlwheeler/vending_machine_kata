@@ -26,7 +26,7 @@ class VendingMachine():
 
     def __init__(self):
         # Current coin inventory.
-        self.coin_inventory = {NICKEL : 0, DIME : 0, QUARTER : 0}
+        self.coin_inventory = {}
 
         # Coin return with number of coins.
         self.coin_return = {}
@@ -38,7 +38,11 @@ class VendingMachine():
         self.dispensed_product = ""
 
         # Acceptable coins and the number entered by the customer.
-        self.inserted_coins = {NICKEL : 0, DIME : 0, QUARTER : 0}
+        self.inserted_coins = {}
+
+        for key in self.VALID_COINS:
+            self.coin_inventory[key] = 0
+            self.inserted_coins[key] = 0
 
     def insert_coin(self, coin):
         """
