@@ -36,11 +36,8 @@ class VendingMachine():
             self.current_amount += self.VALID_COINS[coin]
             self.inserted_coins[coin] += 1
         else:
-            # Place rejected coin in the coin return slot.
-            if coin in self.coin_return:
-                self.coin_return[coin] += 1
-            else:
-                self.coin_return[coin] = 1
+            # Place rejected coin in the coin return bin.
+            self.return_coin(coin, 1)
 
     def is_valid_coin(self, coin):
         """Returns True if the coin is a valid and acceptable coin."""
@@ -48,3 +45,20 @@ class VendingMachine():
             return True
 
         return False
+
+    def return_coin(self, coin, quantity):
+        """Place the returned coins in the return coin bin."""
+        if coin in self.coin_return:
+            self.coin_return[coin] += quantity
+        else:
+            self.coin_return[coin] = quantity
+
+    def return_inserted_coins(self):
+        """Return the inserted coins to the customer."""
+        for coin in self.inserted_coins:
+            if self.inserted_coins[coin] > 0:
+                # Place coin in the return coin bin.
+                self.return_coin(coin, self.inserted_coins[coin])
+
+                # Remove the coin from the inserted coins bin.
+                self.inserted_coins[coin] = 0
