@@ -4,10 +4,16 @@
     Date: 08/29/2017
 """
 
+# Coins
 PENNY = "PENNY"
 NICKEL = "NICKEL"
 DIME = "DIME"
 QUARTER = "QUARTER"
+
+# Products
+COLA = "COLA"
+CHIPS = "CHIPS"
+CANDY = "CANDY"
 
 class VendingMachine():
     """Represents a vending machine."""
@@ -15,7 +21,7 @@ class VendingMachine():
     # Coins that the vending machine are able to accept and their value.
     VALID_COINS = {NICKEL : 0.05, DIME : 0.10, QUARTER : 0.25}
 
-    PRODUCTS = {"COLA" : 1.00, "CHIPS" : 0.50, "CANDY" : 0.65}
+    PRODUCTS = {COLA : 1.00, CHIPS : 0.50, CANDY : 0.65}
 
     def __init__(self):
         # Monetary amount inserted by the customer.
