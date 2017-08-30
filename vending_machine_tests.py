@@ -101,5 +101,16 @@ class VendingMachineTest(unittest.TestCase):
         self.machine.select_cola()
         self.assertEqual(vm.COLA, self.machine.dispensed_product)
 
+    def test_select_cola_with_exact_money_and_check_coin_inventory(self):
+        self.machine.insert_coin(vm.QUARTER)
+        self.machine.insert_coin(vm.QUARTER)
+        self.machine.insert_coin(vm.QUARTER)
+        self.machine.insert_coin(vm.QUARTER)
+
+        self.machine.select_cola()
+
+        self.assertEqual(0.0, self.machine.current_amount)
+        self.assertEqual(4, self.machine.coin_inventory[vm.QUARTER])
+
 if __name__ == '__main__':
     unittest.main()
