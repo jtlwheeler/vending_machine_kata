@@ -81,6 +81,9 @@ class VendingMachineTest(unittest.TestCase):
 
     def test_check_cola_price(self):
         self.assertEqual(1.0, self.machine.PRODUCTS["COLA"])
+    
+    def test_check_chip_price(self):
+        self.assertEqual(0.50, self.machine.PRODUCTS["CHIPS"])
 
 if __name__ == '__main__':
     unittest.main()
