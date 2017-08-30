@@ -111,7 +111,8 @@ class VendingMachineTest(unittest.TestCase):
 
         self.assertEqual(0.0, self.machine.current_amount)
         self.assertEqual(4, self.machine.coin_inventory[vm.QUARTER])
-    
+        self.assertEqual(vm.COLA, self.machine.product_dispense_bin)
+
     def test_select_cola_with_extra_money_and_check_coin_inventory(self):
         self.machine.insert_coin(vm.QUARTER)
         self.machine.insert_coin(vm.QUARTER)
@@ -125,11 +126,12 @@ class VendingMachineTest(unittest.TestCase):
         self.assertEqual(0.05, round(self.machine.current_amount, 2))
         self.assertEqual(3, self.machine.coin_inventory[vm.QUARTER])
         self.assertEqual(3, self.machine.coin_inventory[vm.DIME])
-    
+        self.assertEqual(vm.COLA, self.machine.product_dispense_bin)
+
     def test_select_chips_without_enough_money(self):
         self.machine.select_chips()
         self.assertEqual("", self.machine.product_dispense_bin)
-    
+
     def test_select_chips_with_exact_money_and_check_coin_inventory(self):
         self.machine.insert_coin(vm.QUARTER)
         self.machine.insert_coin(vm.QUARTER)
@@ -138,7 +140,8 @@ class VendingMachineTest(unittest.TestCase):
 
         self.assertEqual(0.0, self.machine.current_amount)
         self.assertEqual(2, self.machine.coin_inventory[vm.QUARTER])
-    
+        self.assertEqual(vm.CHIPS, self.machine.product_dispense_bin)
+
     def test_select_chips_with_extra_money_and_check_coin_inventory(self):
         self.machine.insert_coin(vm.QUARTER)
         self.machine.insert_coin(vm.DIME)
@@ -150,6 +153,7 @@ class VendingMachineTest(unittest.TestCase):
         self.assertEqual(0.05, round(self.machine.current_amount, 2))
         self.assertEqual(1, self.machine.coin_inventory[vm.QUARTER])
         self.assertEqual(3, self.machine.coin_inventory[vm.DIME])
+        self.assertEqual(vm.CHIPS, self.machine.product_dispense_bin)
 
     def test_select_candy_without_enough_money(self):
         self.machine.select_candy()
@@ -167,6 +171,20 @@ class VendingMachineTest(unittest.TestCase):
         self.assertEqual(2, self.machine.coin_inventory[vm.QUARTER])
         self.assertEqual(1, self.machine.coin_inventory[vm.DIME])
         self.assertEqual(1, self.machine.coin_inventory[vm.NICKEL])
+        self.assertEqual(vm.CANDY, self.machine.product_dispense_bin)
+    
+    def test_select_candy_with_extra_money_and_check_coin_inventory(self):
+        self.machine.insert_coin(vm.QUARTER)
+        self.machine.insert_coin(vm.QUARTER)
+        self.machine.insert_coin(vm.DIME)
+        self.machine.insert_coin(vm.DIME)
+
+        self.machine.select_candy()
+
+        self.assertEqual(0.05, round(self.machine.current_amount, 2))
+        self.assertEqual(2, self.machine.coin_inventory[vm.QUARTER])
+        self.assertEqual(2, self.machine.coin_inventory[vm.DIME])
+        self.assertEqual(vm.CANDY, self.machine.product_dispense_bin)
 
 if __name__ == '__main__':
     unittest.main()
