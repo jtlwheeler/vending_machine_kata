@@ -62,3 +62,5 @@ class VendingMachine():
 
                 # Remove the coin from the inserted coins bin.
                 self.inserted_coins[coin] = 0
+
+        self.current_amount = 0.0
