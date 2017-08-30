@@ -46,7 +46,11 @@ class VendingMachine():
             self.inserted_coins[key] = 0
 
     def dispense_product(self, product):
-        """Dispense the product once the user has entered enough money."""
+        """
+        Dispense the product once the user has entered enough money.
+        Coins should be transferred into the coin inventory and the product
+        moved into the product dispense bin for the customer to take.
+        """
         if self.current_amount < self.PRODUCTS[product]:
             return
 
@@ -79,6 +83,11 @@ class VendingMachine():
 
         return False
 
+    def make_change(self, amount):
+        """Make change to return to the customer for the amount of they overpaid."""
+        self.return_coin(NICKEL, 1)
+        self.current_amount = 0.0
+
     def return_coin(self, coin, quantity):
         """Place the returned coins in the return coin bin."""
         if coin in self.coin_return:
@@ -99,10 +108,13 @@ class VendingMachine():
                 self.inserted_coins[coin] = 0
 
     def select_cola(self):
+        """Select cola from the vending machine."""
         self.dispense_product(COLA)
 
     def select_chips(self):
+        """Select chips from the vending machine."""
         self.dispense_product(CHIPS)
 
     def select_candy(self):
+        """Select candy from the vending machine."""
         self.dispense_product(CANDY)
