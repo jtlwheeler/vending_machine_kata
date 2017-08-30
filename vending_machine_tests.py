@@ -150,7 +150,10 @@ class VendingMachineTest(unittest.TestCase):
         self.assertEqual(0.05, round(self.machine.current_amount, 2))
         self.assertEqual(1, self.machine.coin_inventory[vm.QUARTER])
         self.assertEqual(3, self.machine.coin_inventory[vm.DIME])
-    
+
+    def test_select_candy_without_enough_money(self):
+        self.machine.select_candy()
+        self.assertEqual("", self.machine.product_dispense_bin)
 
 if __name__ == '__main__':
     unittest.main()

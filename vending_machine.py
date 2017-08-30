@@ -100,6 +100,9 @@ class VendingMachine():
 
     def select_cola(self):
         self.dispense_product(COLA)
-    
+
     def select_chips(self):
         self.dispense_product(CHIPS)
+
+    def select_candy(self):
+        self.dispense_product(CANDY)
