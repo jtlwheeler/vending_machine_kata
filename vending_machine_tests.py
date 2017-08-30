@@ -138,6 +138,19 @@ class VendingMachineTest(unittest.TestCase):
 
         self.assertEqual(0.0, self.machine.current_amount)
         self.assertEqual(2, self.machine.coin_inventory[vm.QUARTER])
+    
+    def test_select_chips_with_extra_money_and_check_coin_inventory(self):
+        self.machine.insert_coin(vm.QUARTER)
+        self.machine.insert_coin(vm.DIME)
+        self.machine.insert_coin(vm.DIME)
+        self.machine.insert_coin(vm.DIME)
+
+        self.machine.select_chips()
+
+        self.assertEqual(0.05, round(self.machine.current_amount, 2))
+        self.assertEqual(1, self.machine.coin_inventory[vm.QUARTER])
+        self.assertEqual(3, self.machine.coin_inventory[vm.DIME])
+    
 
 if __name__ == '__main__':
     unittest.main()
