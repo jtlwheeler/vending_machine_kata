@@ -126,6 +126,10 @@ class VendingMachineTest(unittest.TestCase):
         self.assertEqual(3, self.machine.coin_inventory[vm.QUARTER])
         self.assertEqual(3, self.machine.coin_inventory[vm.DIME])
     
+    def test_select_chips_without_enough_money(self):
+        self.machine.select_chips()
+        self.assertEqual("", self.machine.product_dispense_bin)
+    
     def test_select_chips_with_exact_money_and_check_coin_inventory(self):
         self.machine.insert_coin(vm.QUARTER)
         self.machine.insert_coin(vm.QUARTER)
