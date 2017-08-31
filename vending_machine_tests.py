@@ -242,5 +242,9 @@ class VendingMachineTest(unittest.TestCase):
     def test_is_machine_sold_out_should_return_true(self):
         self.assertTrue(self.machine.is_machine_sold_out())
 
+    def test_is_machine_sold_out_with_cola_should_return_false(self):
+        self.machine.product_inventory[vm.COLA] = 1
+        self.assertFalse(self.machine.is_machine_sold_out())
+
 if __name__ == '__main__':
     unittest.main()

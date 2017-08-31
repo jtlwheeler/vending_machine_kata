@@ -37,13 +37,19 @@ class VendingMachine():
         # Product dispense bin.
         self.product_dispense_bin = ""
 
+        # Current product inventory. Product name and quantity.
+        self.product_inventory = {}
+
         # Acceptable coins and the number entered by the customer.
         # Coin and quantity.
         self.inserted_coins = {}
 
-        for key in self.VALID_COINS:
-            self.coin_inventory[key] = 0
-            self.inserted_coins[key] = 0
+        for coin in self.VALID_COINS:
+            self.coin_inventory[coin] = 0
+            self.inserted_coins[coin] = 0
+
+        for product in self.PRODUCTS:
+            self.product_inventory[product] = 0
 
     def dispense_product(self, product):
         """
@@ -77,6 +83,10 @@ class VendingMachine():
             self.return_coin(coin, 1)
 
     def is_machine_sold_out(self):
+        for product in self.product_inventory:
+            if self.product_inventory[product] > 0:
+                return False
+        
         return True
 
     def is_valid_coin(self, coin):
