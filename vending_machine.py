@@ -35,7 +35,7 @@ class VendingMachine():
         self.current_amount = 0.0
 
         # Vending machine display unit.
-        self.display = ""
+        self._display = ""
 
         # Product dispense bin.
         self.product_dispense_bin = ""
@@ -54,6 +54,22 @@ class VendingMachine():
         for product in self.PRODUCTS:
             self.product_inventory[product] = 0
 
+    @property
+    def display(self):
+        if self._display:
+            tmp_str = self._display
+            self._display = ""
+            return tmp_str
+
+        if self.current_amount > 0.0:
+            return "$%.2f" % self.current_amount
+        else:
+            return "INSERT COIN"
+
+    @display.setter
+    def display(self, value):
+        self._display = value
+
     def dispense_product(self, product):
         """
         Dispense the product once the user has entered enough money.
@@ -71,14 +87,7 @@ class VendingMachine():
 
         self.current_amount -= self.PRODUCTS[product]
         self.product_inventory[product] -= 1
-
-    def check_display(self):
-        if self.current_amount > 0.0:
-            display = ("$%.2f" % self.current_amount)
-        else:
-            display = "INSERT COIN"
-
-        return display
+        self._display = "THANK YOU"
 
     def exact_change_only(self):
         """Return true if exact change is needed."""
