@@ -254,5 +254,14 @@ class VendingMachineTest(unittest.TestCase):
         self.machine.product_inventory[vm.CANDY] = 1
         self.assertFalse(self.machine.is_machine_sold_out())
 
+    def test_select_chips_and_remove_from_product_inventory(self):
+        self.machine.product_inventory[vm.CHIPS] = 1
+        self.machine.insert_coin(vm.QUARTER)
+        self.machine.insert_coin(vm.QUARTER)
+
+        self.machine.select_chips()
+
+        self.assertEqual(0, self.machine.product_inventory[vm.CHIPS])
+
 if __name__ == '__main__':
     unittest.main()

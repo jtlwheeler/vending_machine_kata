@@ -67,6 +67,7 @@ class VendingMachine():
                 self.inserted_coins[coin] = 0
 
         self.current_amount -= self.PRODUCTS[product]
+        self.product_inventory[product] -= 1
 
     def insert_coin(self, coin):
         """
@@ -83,10 +84,11 @@ class VendingMachine():
             self.return_coin(coin, 1)
 
     def is_machine_sold_out(self):
+        """Returns True if the vending machine is sold out of products."""
         for product in self.product_inventory:
             if self.product_inventory[product] > 0:
                 return False
-        
+
         return True
 
     def is_valid_coin(self, coin):
