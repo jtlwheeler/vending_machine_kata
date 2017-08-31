@@ -34,6 +34,9 @@ class VendingMachine():
         # Monetary amount inserted by the customer.
         self.current_amount = 0.0
 
+        # Vending machine display unit.
+        self.display = ""
+
         # Product dispense bin.
         self.product_dispense_bin = ""
 
@@ -70,9 +73,15 @@ class VendingMachine():
         self.product_inventory[product] -= 1
 
     def check_display(self):
-        return "INSERT COIN"
+        if self.current_amount > 0.0:
+            display = ("$%.2f" % self.current_amount)
+        else:
+            display = "INSERT COIN"
+
+        return display
 
     def exact_change_only(self):
+        """Return true if exact change is needed."""
         min_coin = min(self.VALID_COINS.values())
         max_coin = max(self.VALID_COINS.values())
 
