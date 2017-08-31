@@ -299,5 +299,8 @@ class VendingMachineTest(unittest.TestCase):
 
         self.assertFalse(self.machine.exact_change_only())
 
+    def test_display_should_show_insert_coin_with_coins_in_inventory(self):
+        self.assertEqual("INSERT COIN", self.machine.check_display())
+
 if __name__ == '__main__':
     unittest.main()

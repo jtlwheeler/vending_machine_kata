@@ -69,6 +69,9 @@ class VendingMachine():
         self.current_amount -= self.PRODUCTS[product]
         self.product_inventory[product] -= 1
 
+    def check_display(self):
+        return "INSERT COIN"
+
     def exact_change_only(self):
         min_coin = min(self.VALID_COINS.values())
         max_coin = max(self.VALID_COINS.values())
