@@ -312,6 +312,7 @@ class VendingMachineTest(unittest.TestCase):
 
     def test_display_should_say_thank_you_after_dispensing_item(self):
         self.machine.product_inventory[vm.COLA] = 5
+        self.machine.coin_inventory[vm.NICKEL] = 3
         self.machine.insert_coin(vm.QUARTER)
         self.machine.insert_coin(vm.QUARTER)
         self.machine.insert_coin(vm.QUARTER)
@@ -335,6 +336,7 @@ class VendingMachineTest(unittest.TestCase):
 
     def test_display_should_show_price_then_insert_coin_after_selecting_item_with_no_money(self):
         self.machine.product_inventory[vm.COLA] = 5
+        self.machine.coin_inventory[vm.NICKEL] = 3
         self.machine.select_cola()
 
         self.assertEqual("PRICE $1.00", self.machine.display)
@@ -342,6 +344,7 @@ class VendingMachineTest(unittest.TestCase):
 
     def test_display_should_show_insert_coin_after_returning_coins(self):
         self.machine.product_inventory[vm.COLA] = 5
+        self.machine.coin_inventory[vm.NICKEL] = 3
         self.machine.insert_coin(vm.QUARTER)
         self.machine.return_inserted_coins()
 
@@ -349,6 +352,10 @@ class VendingMachineTest(unittest.TestCase):
 
     def test_display_should_show_sold_out_with_no_products(self):
         self.assertEqual("SOLD OUT", self.machine.display)
+
+    def test_display_should_show_exact_change_only_with_no_coins(self):
+        self.machine.product_inventory[vm.COLA] = 5
+        self.assertEqual("EXACT CHANGE ONLY", self.machine.display)
 
 if __name__ == '__main__':
     unittest.main()

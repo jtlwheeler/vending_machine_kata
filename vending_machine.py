@@ -63,9 +63,12 @@ class VendingMachine():
 
         if self.is_machine_sold_out():
             return "SOLD OUT"
-       
+
         if self.current_amount > 0.0:
             return "$%.2f" % self.current_amount
+
+        if self.exact_change_only():
+            return "EXACT CHANGE ONLY"
 
         return "INSERT COIN"
 
