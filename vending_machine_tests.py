@@ -263,5 +263,17 @@ class VendingMachineTest(unittest.TestCase):
 
         self.assertEqual(0, self.machine.product_inventory[vm.CHIPS])
 
+    def test_select_cola_and_remove_from_product_inventory(self):
+        self.machine.product_inventory[vm.COLA] = 1
+        self.machine.insert_coin(vm.QUARTER)
+        self.machine.insert_coin(vm.QUARTER)
+        self.machine.insert_coin(vm.QUARTER)
+        self.machine.insert_coin(vm.QUARTER)
+
+        self.machine.select_cola()
+
+        self.assertEqual(0, self.machine.product_inventory[vm.COLA])
+
+
 if __name__ == '__main__':
     unittest.main()
