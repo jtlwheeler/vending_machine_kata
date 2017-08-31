@@ -155,10 +155,7 @@ class VendingMachine():
                     self.coin_inventory[coin_name] -= 1
                     self.return_coin(coin_name, 1)
 
-        if round(amount, 2) == 0.0:
-            return True
-        else:
-            return False
+        return bool(round(amount, 2) == 0.0)
 
     def return_coin(self, coin, quantity):
         """Place the returned coins in the return coin bin."""
