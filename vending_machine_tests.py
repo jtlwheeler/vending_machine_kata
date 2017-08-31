@@ -186,16 +186,23 @@ class VendingMachineTest(unittest.TestCase):
         self.assertEqual(2, self.machine.coin_inventory[vm.DIME])
         self.assertEqual(vm.CANDY, self.machine.product_dispense_bin)
 
-    def test_make_change_with_five_cents_over(self):
+    def test_make_change_for_five_cents_with_one_nickel_in_coin_inventory(self):
         self.machine.coin_inventory[vm.NICKEL] += 1
         self.machine.make_change(0.05)
         self.assertEqual(1, self.machine.coin_return[vm.NICKEL])
 
-    def test_make_change_with_ten_cents_current_amount_should_be_zero(self):
+    def test_make_change_for_ten_cents_with_two_nickels(self):
         self.machine.coin_inventory[vm.NICKEL] += 2
         self.machine.make_change(0.10)
         self.assertEqual(2, self.machine.coin_return[vm.NICKEL])
         self.assertEqual(0, self.machine.coin_inventory[vm.NICKEL])
+        self.assertEqual(0.0, self.machine.current_amount)
+
+    def test_make_change_for_ten_cents_with_one_dime(self):
+        self.machine.coin_inventory[vm.DIME] += 1
+        self.machine.make_change(0.10)
+        self.assertEqual(1, self.machine.coin_return[vm.DIME])
+        self.assertEqual(0, self.machine.coin_inventory[vm.DIME])
         self.assertEqual(0.0, self.machine.current_amount)
 
 if __name__ == '__main__':

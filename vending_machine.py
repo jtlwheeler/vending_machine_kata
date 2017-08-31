@@ -85,12 +85,13 @@ class VendingMachine():
 
     def make_change(self, amount):
         """Make change to return to the customer for the amount of they overpaid."""
-        if amount == 0.05:
-            self.return_coin(NICKEL, 1)
-        elif amount == 0.10:
-            self.return_coin(NICKEL, 2)
-            self.coin_inventory[NICKEL] -= 2
-        self.current_amount = 0.0
+        # Order dictionary in the descending direction by coin value.
+        coin_dict_desc = sorted(self.VALID_COINS.items(), key=lambda x: x[1], reverse=True)
+        for coin_name, coin_value in coin_dict_desc:
+            while coin_value <= amount and self.coin_inventory[coin_name] > 0:
+                self.coin_inventory[coin_name] -= 1
+                amount -= coin_value
+                self.return_coin(coin_name, 1)
 
     def return_coin(self, coin, quantity):
         """Place the returned coins in the return coin bin."""
