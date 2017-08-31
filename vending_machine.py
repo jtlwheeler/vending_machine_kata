@@ -69,6 +69,9 @@ class VendingMachine():
         self.current_amount -= self.PRODUCTS[product]
         self.product_inventory[product] -= 1
 
+    def exact_change_only(self):
+        return True
+
     def insert_coin(self, coin):
         """
         Insert a coin into the vending machine.

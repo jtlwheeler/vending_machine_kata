@@ -285,5 +285,8 @@ class VendingMachineTest(unittest.TestCase):
 
         self.assertEqual(0, self.machine.product_inventory[vm.CANDY])
 
+    def test_exact_change_only_should_return_true(self):
+        self.assertTrue(self.machine.exact_change_only())
+
 if __name__ == '__main__':
     unittest.main()
