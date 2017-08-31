@@ -88,7 +88,7 @@ class VendingMachine():
         # Order dictionary in the descending direction by coin value.
         coin_dict_desc = sorted(self.VALID_COINS.items(), key=lambda x: x[1], reverse=True)
         for coin_name, coin_value in coin_dict_desc:
-            while coin_value <= amount and self.coin_inventory[coin_name] > 0:
+            while coin_value <= round(amount, 2) and self.coin_inventory[coin_name] > 0:
                 self.coin_inventory[coin_name] -= 1
                 amount -= coin_value
                 self.return_coin(coin_name, 1)
