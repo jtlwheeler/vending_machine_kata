@@ -77,6 +77,7 @@ class VendingMachine():
         moved into the product dispense bin for the customer to take.
         """
         if self.current_amount < self.PRODUCTS[product]:
+            self.display = "PRICE $%.2f" % self.PRODUCTS[product]
             return
 
         self.product_dispense_bin = product
