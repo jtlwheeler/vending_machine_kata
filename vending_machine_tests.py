@@ -329,5 +329,11 @@ class VendingMachineTest(unittest.TestCase):
         self.assertEqual("PRICE $1.00", self.machine.display)
         self.assertEqual("$0.75", self.machine.display)
 
+    def test_display_should_show_price_then_insert_coin_after_selecting_item_with_no_money(self):
+        self.machine.select_cola()
+
+        self.assertEqual("PRICE $1.00", self.machine.display)
+        self.assertEqual("INSERT COIN", self.machine.display)
+
 if __name__ == '__main__':
     unittest.main()
