@@ -56,7 +56,10 @@ class VendingMachine():
 
     @property
     def display(self):
+        """Vending machine display."""
         if self._display:
+            # Toggle the display to show the custom message so that the
+            # standard display can be shown the next time it is checked.
             tmp_str = self._display
             self._display = ""
             return tmp_str
