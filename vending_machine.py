@@ -85,7 +85,11 @@ class VendingMachine():
 
     def make_change(self, amount):
         """Make change to return to the customer for the amount of they overpaid."""
-        self.return_coin(NICKEL, 1)
+        if amount == 0.05:
+            self.return_coin(NICKEL, 1)
+        elif amount == 0.10:
+            self.return_coin(NICKEL, 2)
+            self.coin_inventory[NICKEL] -= 2
         self.current_amount = 0.0
 
     def return_coin(self, coin, quantity):
