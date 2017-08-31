@@ -300,15 +300,18 @@ class VendingMachineTest(unittest.TestCase):
         self.assertFalse(self.machine.exact_change_only())
 
     def test_display_should_show_insert_coin_with_coins_in_inventory(self):
+        self.machine.product_inventory[vm.COLA] = 5
         self.machine.coin_inventory[vm.NICKEL] = 3
         self.assertEqual("INSERT COIN", self.machine.display)
 
     def test_display_should_show_amount_inserted(self):
+        self.machine.product_inventory[vm.COLA] = 5
         self.machine.coin_inventory[vm.NICKEL] = 3
         self.machine.insert_coin(vm.NICKEL)
         self.assertEqual("$0.05", self.machine.display)
 
     def test_display_should_say_thank_you_after_dispensing_item(self):
+        self.machine.product_inventory[vm.COLA] = 5
         self.machine.insert_coin(vm.QUARTER)
         self.machine.insert_coin(vm.QUARTER)
         self.machine.insert_coin(vm.QUARTER)
@@ -320,6 +323,7 @@ class VendingMachineTest(unittest.TestCase):
         self.assertEqual("INSERT COIN", self.machine.display)
 
     def test_display_should_show_price_after_selecting_item_without_enough_money(self):
+        self.machine.product_inventory[vm.COLA] = 5
         self.machine.insert_coin(vm.QUARTER)
         self.machine.insert_coin(vm.QUARTER)
         self.machine.insert_coin(vm.QUARTER)
@@ -330,16 +334,21 @@ class VendingMachineTest(unittest.TestCase):
         self.assertEqual("$0.75", self.machine.display)
 
     def test_display_should_show_price_then_insert_coin_after_selecting_item_with_no_money(self):
+        self.machine.product_inventory[vm.COLA] = 5
         self.machine.select_cola()
 
         self.assertEqual("PRICE $1.00", self.machine.display)
         self.assertEqual("INSERT COIN", self.machine.display)
 
     def test_display_should_show_insert_coin_after_returning_coins(self):
+        self.machine.product_inventory[vm.COLA] = 5
         self.machine.insert_coin(vm.QUARTER)
         self.machine.return_inserted_coins()
 
         self.assertEqual("INSERT COIN", self.machine.display)
+
+    def test_display_should_show_sold_out_with_no_products(self):
+        self.assertEqual("SOLD OUT", self.machine.display)
 
 if __name__ == '__main__':
     unittest.main()

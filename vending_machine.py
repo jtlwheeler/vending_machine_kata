@@ -61,10 +61,13 @@ class VendingMachine():
             self._display = ""
             return tmp_str
 
+        if self.is_machine_sold_out():
+            return "SOLD OUT"
+       
         if self.current_amount > 0.0:
             return "$%.2f" % self.current_amount
-        else:
-            return "INSERT COIN"
+
+        return "INSERT COIN"
 
     @display.setter
     def display(self, value):
