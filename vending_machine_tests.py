@@ -232,12 +232,15 @@ class VendingMachineTest(unittest.TestCase):
         self.assertEqual(1, self.machine.coin_return[vm.DIME])
         self.assertEqual(0, self.machine.coin_inventory[vm.NICKEL])
         self.assertEqual(0, self.machine.coin_inventory[vm.DIME])
-    
+
     def test_make_change_for_twenty_cents_with_two_dimes(self):
         self.machine.coin_inventory[vm.DIME] = 2
         self.machine.make_change(0.20)
         self.assertEqual(2, self.machine.coin_return[vm.DIME])
         self.assertEqual(0, self.machine.coin_inventory[vm.DIME])
+
+    def test_is_machine_sold_out_should_return_true(self):
+        self.assertTrue(self.machine.is_machine_sold_out())
 
 if __name__ == '__main__':
     unittest.main()

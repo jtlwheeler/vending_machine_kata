@@ -76,6 +76,9 @@ class VendingMachine():
             # Place rejected coin in the coin return bin.
             self.return_coin(coin, 1)
 
+    def is_machine_sold_out(self):
+        return True
+
     def is_valid_coin(self, coin):
         """Returns True if the coin is a valid and acceptable coin."""
         if coin in self.VALID_COINS:
