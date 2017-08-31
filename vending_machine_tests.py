@@ -218,5 +218,11 @@ class VendingMachineTest(unittest.TestCase):
         self.assertEqual(0, self.machine.coin_inventory[vm.NICKEL])
         self.assertEqual(0, self.machine.coin_inventory[vm.DIME])
 
+    def test_make_change_for_twenty_cents_with_four_nickels(self):
+        self.machine.coin_inventory[vm.NICKEL] = 4
+        self.machine.make_change(0.20)
+        self.assertEqual(4, self.machine.coin_return[vm.NICKEL])
+        self.assertEqual(0, self.machine.coin_inventory[vm.NICKEL])
+
 if __name__ == '__main__':
     unittest.main()
