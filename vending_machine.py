@@ -70,7 +70,19 @@ class VendingMachine():
         self.product_inventory[product] -= 1
 
     def exact_change_only(self):
-        return True
+        min_coin = min(self.VALID_COINS.values())
+        max_coin = max(self.VALID_COINS.values())
+
+        coin_value_delta = round(max_coin - min_coin, 2)
+
+        offset = min_coin
+        while offset <= coin_value_delta:
+            can_make_change = self.make_change(round(offset, 2), return_coin=False)
+            if can_make_change is False:
+                return True
+            offset += min_coin
+
+        return False
 
     def insert_coin(self, coin):
         """
@@ -101,15 +113,21 @@ class VendingMachine():
 
         return False
 
-    def make_change(self, amount):
+    def make_change(self, amount, return_coin=True):
         """Make change to return to the customer for the amount of they overpaid."""
         # Order dictionary in the descending direction by coin value.
         coin_dict_desc = sorted(self.VALID_COINS.items(), key=lambda x: x[1], reverse=True)
         for coin_name, coin_value in coin_dict_desc:
             while coin_value <= round(amount, 2) and self.coin_inventory[coin_name] > 0:
-                self.coin_inventory[coin_name] -= 1
                 amount -= coin_value
-                self.return_coin(coin_name, 1)
+                if return_coin:
+                    self.coin_inventory[coin_name] -= 1
+                    self.return_coin(coin_name, 1)
+
+        if round(amount, 2) == 0.0:
+            return True
+        else:
+            return False
 
     def return_coin(self, coin, quantity):
         """Place the returned coins in the return coin bin."""

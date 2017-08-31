@@ -288,5 +288,11 @@ class VendingMachineTest(unittest.TestCase):
     def test_exact_change_only_should_return_true(self):
         self.assertTrue(self.machine.exact_change_only())
 
+    def test_exact_change_only_should_return_false_with_coins(self):
+        self.machine.coin_inventory[vm.NICKEL] = 3
+        self.machine.coin_inventory[vm.DIME] = 3
+
+        self.assertFalse(self.machine.exact_change_only())
+
 if __name__ == '__main__':
     unittest.main()
